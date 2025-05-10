@@ -7,10 +7,10 @@ import {Blog} from './blog';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-
     <BrowserRouter>
-    <Blog />
+        <Blog />
     </BrowserRouter>
 
 );
+
 

@@ -1,65 +1,79 @@
 import {Icon} from '../../../../components/icon/icon';
+import { Button } from '../../../../components/button/button';
 import styled from 'styled-components';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBackward, faFileText, faUsers} from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import { selectUserRole, selectUserLogin, selectUserSession } from '../../../../selectors';
+import { ROLE } from '../../../../constants/role';
+import { logout } from '../../../../actions/logout';
+import { useDispatch } from 'react-redux';
 
 const RightAligned = styled.div`
     display: flex;
     justify-content: flex-end;
-`;
-const StyledLink = styled(Link)`
-    display:flex;
-    justify-content: center;
     align-items: center;
-    font-size: 18px;
-    width: 100px;
-    height: 32px;
-    border-radius: 4px;
-    background: #007bff;
-    padding: 8px;
-    text-align: center;
-    margin: 10px 0;
-    &:hover {
-        background: #0056b3;
-    }
 `;
+
 const icons = {
     "fa-backward": faBackward,
     "fa-file-text-o": faFileText,
     "fa-users": faUsers,
 };
-const StyledButton = styled.div`
+
+const StyledIcon = styled.div`
     &:hover {
         cursor: pointer;
     }
 `;
 
+
+const UserName = styled.div`
+font-size: 18px;
+font-weight: bold;
+`;
+
 const ControlPanelContainer = ({ClassName}) => {
     const navigate = useNavigate();
+    const roleId = useSelector(selectUserRole);
+    const login = useSelector((state) =>
+        selectUserLogin(state.auth || { user: {} }),
+    );
+
+    const dispatch = useDispatch();
+   const session = useSelector((state) =>
+       selectUserSession(state.auth || { user: {} }),
+   );
+   console.log('🔍 Debug: session =', session);
     return (
         <div className={ClassName}>
             <RightAligned>
-                <StyledLink to="/login">Enter</StyledLink>
+                {roleId === ROLE.GUEST ? (
+                    <Button>
+                        <Link to="/login">Enter</Link>
+                    </Button>
+                ) : (
+                    <>
+                        <UserName>{login}</UserName>
+                        <StyledIcon>
+                            <Icon
+                                id="fa-sign-out"
+                                margin="0 0 0 10px"
+                                onClick={() => dispatch(logout(session))}
+                            />
+                        </StyledIcon>
+                    </>
+                )}
             </RightAligned>
             <RightAligned>
-                <a onClick={()=> navigate(-1)}>
-                    <FontAwesomeIcon
-                        icon={icons['fa-backward']}
-                        style={{ margin: '10px 0 0 0' }}
-                    />
-                </a>
+                <StyledIcon onClick={() => navigate(-1)}>
+                    <Icon id="fa-backward" margin="10px 0 0 0" />
+                </StyledIcon>
                 <Link to="/post">
-                    <FontAwesomeIcon
-                        icon={icons['fa-file-text-o']}
-                        style={{ margin: '10px 0 0 16px' }}
-                    />
+                    <Icon id="fa-file-text-o" margin="10px 0 0 16px" />
                 </Link>
                 <Link to="/users">
-                    <FontAwesomeIcon
-                        icon={icons['fa-users']}
-                        style={{ margin: '10px 0 0 16px' }}
-                    />
+                    <Icon id="fa-users" margin="10px 0 0 16px" />
                 </Link>
             </RightAligned>
         </div>

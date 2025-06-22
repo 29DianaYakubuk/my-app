@@ -33,23 +33,24 @@ const authFormSchema = yup.object().shape({
 const StyledLink = styled(Link)`
     text-align: center;
     text-decoration: underline;
-    margin: 20 px 0;
+    margin: 20px 0;
     font-size: 18px;
     `;
 
 const AuthorizationContainer = ({className}) => {
-   const{
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-    } = useForm({
-        defaultValues: {
-            login: '',
-            password: ''
-        },
-        resolver: yupResolver(authFormSchema),
-    });
+   const {
+       register,
+       reset,
+       handleSubmit,
+       formState: { errors, isValid},
+   } = useForm({
+       defaultValues: {
+           login: '',
+           password: '',
+       },
+       resolver: yupResolver(authFormSchema),
+       mode: 'onChange', // Update validation on every change
+   });
 
     const [serverError, setServerError] = useState(null);
 
@@ -93,7 +94,7 @@ const AuthorizationContainer = ({className}) => {
                         onChange: () => setServerError(null),
                     })}
                 />
-                <Button type="submit" disabled={!!formError}>
+                <Button type="submit" disabled={!isValid}>
                     Submit
                 </Button>
                 {errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
@@ -104,7 +105,7 @@ const AuthorizationContainer = ({className}) => {
 };
 
 export const Authorization = styled(AuthorizationContainer)`
-    margin: 0 auto;
+
     display: flex;
     flex-direction: column;
     align-items: center;

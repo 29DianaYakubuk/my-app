@@ -1,7 +1,7 @@
 import {Icon} from '../../../../components/icon/icon';
 import { Button } from '../../../../components/button/button';
 import styled from 'styled-components';
-import {faBackward, faFileText, faUsers} from '@fortawesome/free-solid-svg-icons';
+import {faBackward, faFileLines, faUsers} from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import { selectUserRole, selectUserLogin, selectUserSession } from '../../../../selectors';
@@ -17,16 +17,9 @@ const RightAligned = styled.div`
 
 const icons = {
     "fa-backward": faBackward,
-    "fa-file-text-o": faFileText,
+    "fa-file-lines": faFileLines,
     "fa-users": faUsers,
 };
-
-const StyledIcon = styled.div`
-    &:hover {
-        cursor: pointer;
-    }
-`;
-
 
 const UserName = styled.div`
 font-size: 18px;
@@ -36,15 +29,10 @@ font-weight: bold;
 const ControlPanelContainer = ({ClassName}) => {
     const navigate = useNavigate();
     const roleId = useSelector(selectUserRole);
-    const login = useSelector((state) =>
-        selectUserLogin(state.auth || { user: {} }),
-    );
-
+    const login = useSelector(selectUserLogin);
     const dispatch = useDispatch();
-   const session = useSelector((state) =>
-       selectUserSession(state.auth || { user: {} }),
-   );
-   console.log('🔍 Debug: session =', session);
+    const session = useSelector(selectUserSession);
+
     return (
         <div className={ClassName}>
             <RightAligned>
@@ -55,22 +43,22 @@ const ControlPanelContainer = ({ClassName}) => {
                 ) : (
                     <>
                         <UserName>{login}</UserName>
-                        <StyledIcon>
-                            <Icon
-                                id="fa-sign-out"
-                                margin="0 0 0 10px"
-                                onClick={() => dispatch(logout(session))}
-                            />
-                        </StyledIcon>
+                        <Icon
+                            id="fa-sign-out"
+                            margin="0 0 0 10px"
+                            onClick={() => dispatch(logout(session))}
+                        />
                     </>
                 )}
             </RightAligned>
             <RightAligned>
-                <StyledIcon onClick={() => navigate(-1)}>
-                    <Icon id="fa-backward" margin="10px 0 0 0" />
-                </StyledIcon>
+                    <Icon
+                        id="fa-backward"
+                        margin="10px 0 0 0"
+                        onClick={() => navigate(-1)}
+                    />
                 <Link to="/post">
-                    <Icon id="fa-file-text-o" margin="10px 0 0 16px" />
+                    <Icon id="fa-file-lines" margin="10px 0 0 16px" />
                 </Link>
                 <Link to="/users">
                     <Icon id="fa-users" margin="10px 0 0 16px" />

@@ -1,7 +1,7 @@
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {server} from '../../bff/server';
+import {server} from '../../bff/index.js';
 import {useState} from 'react';
 import styled from 'styled-components';
 import { Input } from '../../components/input/input';
@@ -66,6 +66,7 @@ const AuthorizationContainer = ({className}) => {
                 return;
             }
             dispatch(setUser(res));
+            sessionStorage.setItem('userData', JSON.stringify(res));
         });
     };
 

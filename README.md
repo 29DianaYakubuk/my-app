@@ -23,3 +23,18 @@
  -posts: массив со статьями: id / title / imageURL/ publishedAt/commentsCount
 -post: id / title / imageURL/content /publishedAt/comments:массив comment: id/author/content/ publishedAt
 -users: массив user: id/login/registeredAt/role
+
+/* comments: {
+      "id": "001",
+      "post_id": "001",
+      "user_id": "001",
+      "content": "Great article! I love how you highlighted the importance of AI in enhancing human capabilities. It's exciting to see how technology can empower us rather than replace us.",
+      "created_at": "2023-10-06"
+    },
+    {
+      "id": "002",
+      "post_id": "002",
+      "user_id": "001",
+      "content": "The future of work is indeed changing rapidly. I appreciate your insights on the importance of mental health in the workplace. It's crucial for companies to prioritize employee well-being.",
+      "created_at": "2023-11-16"
+    } */

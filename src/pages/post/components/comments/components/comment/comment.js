@@ -1,9 +1,27 @@
 import {Icon} from '../../../../../../components';
 import styled from "styled-components";
+import {openModal, CLOSE_MODAL, removeCommentAsync} from '../../../../../../actions';
+import {useDispatch} from "react-redux";
+import {useServerRequest} from '../../../../../../hooks/use-server-request';
 
+const CommentContainer = ({className, postId, id, author, publishedAt, content}) => {
+    const dispatch = useDispatch();
+    const requestServer = useServerRequest();
 
-const CommentContainer = ({className, id, author, publishedAt, content}) => {
-    return (
+    const onCommentRemove = (id) => {
+        dispatch(
+            openModal({
+            text: 'Delete comment?',
+            onConfirm: () => {
+                dispatch(removeCommentAsync(requestServer, postId, id));
+                dispatch(CLOSE_MODAL);
+            },
+            onCancel: () => dispatch(CLOSE_MODAL),
+            }),
+        );
+    }; 
+
+    return(
         <div className ={className}>
             <div className = "comment">
                 <div className = "information-panel">
@@ -31,7 +49,7 @@ const CommentContainer = ({className, id, author, publishedAt, content}) => {
              <Icon
                 id="fa-trash-can"
                 margin="0 0 0 10px"
-                onClick={() => {}}
+                onClick={() => onCommentRemove()}
             />
         </div>
     );

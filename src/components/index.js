@@ -4,5 +4,6 @@ export * from './footer/footer';
 export * from './input/input';
 export * from './button/button';
 export * from './h2/h2';
-export * from './auth-form-error/auth-error'
+export * from './auth-form-error/auth-error';
 export * from './content/content';
+export * from './modal/modal';

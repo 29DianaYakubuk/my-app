@@ -6,6 +6,7 @@ import  {Authorization, Registration, Users, Post} from './pages/index';
 import { useLayoutEffect } from 'react';
 import { setUser } from './actions';
 import { useDispatch } from 'react-redux';
+import { Modal } from './components/modal/modal';
 
 const AppColumn = styled.div`
   display: flex;
@@ -56,6 +57,7 @@ export const Blog = () => {
               </Routes>
           </Page>
           <Footer />
+          <Modal />
       </AppColumn>
   );
 }

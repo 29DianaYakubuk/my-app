@@ -98,16 +98,6 @@
         "roleId": 2,
         "password": "qwert123456"
       }
-    },
-    {
-      "id": "2397",
-      "hash": "u69gu9uksnj",
-      "user": {
-        "id": "a18c",
-        "login": "anton",
-        "roleId": 2,
-        "password": "qwert123456"
-      }
     }
   ]
 }

@@ -13,8 +13,9 @@ const PostContentContainer = ({
             <img src={imageUrl} alt={title}/>
             <H2>{title}</H2>
             <SpecialPanel 
+                id={id}
                 publishedAt={publishedAt} 
-                margin="-20px 0 20 px" 
+                margin="-20px 0 20px" 
                 editButton={
                     <Icon
                         id="fa-pencil"
@@ -22,7 +23,7 @@ const PostContentContainer = ({
                         margin="0 7px 0 0"
                         onClick={() => navigate(`/post/${id}/edit`)}
                     />
-                } 
+                }
             />
             <div className="post-tex">{content}</div>
         </div>

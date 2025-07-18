@@ -57,7 +57,6 @@ const UserRowContainer = ({
         </div>
     );
 };
-
 export const UserRow = styled(UserRowContainer)`
 display: flex;
 border: 1px solid #000;

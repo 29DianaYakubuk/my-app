@@ -11,7 +11,7 @@ const CommentContainer = ({className, postId, id, author, publishedAt, content})
     const onCommentRemove = (id) => {
         dispatch(
             openModal({
-            text: 'Delete comment?',
+            text: 'Delete comment',
             onConfirm: () => {
                 dispatch(removeCommentAsync(requestServer, postId, id));
                 dispatch(CLOSE_MODAL);
@@ -27,6 +27,7 @@ const CommentContainer = ({className, postId, id, author, publishedAt, content})
                 <div className = "information-panel">
                     <div className = "author">
                         <Icon
+                            inactive={true}
                             id="fa-user"
                             size="18px"
                             margin="0 7px 0 0"
@@ -36,6 +37,7 @@ const CommentContainer = ({className, postId, id, author, publishedAt, content})
                     </div>
                     <div className = "published-at">
                     <Icon
+                        inactive={true}
                         id="fa-calendar-days"
                         size="18px"
                         margin="0 7px 0 0"

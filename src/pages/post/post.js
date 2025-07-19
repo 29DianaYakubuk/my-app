@@ -1,81 +1,51 @@
-import {Comments} from '../post/components/comments/comments';
-import { useParams } from 'react-router-dom';
-import {PostContent} from './components/post-content/post-content';
-import { useEffect } from 'react';
+import { useMatch, useParams } from 'react-router-dom';
+import { PostForm, PostContent, Comments } from './components';
+import { useEffect, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector,useDispatch } from 'react-redux';
 import { useServerRequest } from '../../hooks/use-server-request';
-import { loadPostAsync } from '../../actions';
+import { loadPostAsync, RESET_POST_DATA } from '../../actions';
+import {initialPostState} from '../../reducers'
 import { selectPost } from '../../selectors/select-post';
 
 
 const PostContainer = ({ className }) => {
-    const post = useSelector(selectPost);
+   
     const dispatch = useDispatch();
+    const isCreating = useMatch('/post');
+    const isEditing =useMatch('/post/:id/edit');
     const params = useParams();
     const requestServer = useServerRequest();
+    const post = useSelector(selectPost);
+
+    useLayoutEffect(() => {
+        dispatch(RESET_POST_DATA);
+     }, [dispatch, isCreating]);
 
     useEffect(() => {
-        if (!params.id || typeof params.id !== 'string' || params.id.trim() === '') {
-            console.warn('Invalid or empty post ID:', params.id);
+        if (isCreating) {
             return;
         }
 
         dispatch(loadPostAsync(requestServer, params.id));
-    }, [dispatch, requestServer, params.id]);
-
-    if (!post || !post.id) {
-        return <div>Загрузка поста...</div>;
-    }
+    }, [dispatch, requestServer, params.id, isCreating]);
 
     return (
         <div className={className}>
-            <PostContent post={post} />
-            <Comments comments={post.comments} postId={post.id} />
-        </div>
+            {isCreating || isEditing ? (
+                <PostForm post={post}/>
+            ) : (
+                <>
+                    <PostContent post={post} />
+                    <Comments comments={post.comments} postId={post.id} />
+                </>
+            )}
+        </div>        
     );
 };
 
 export const Post = styled(PostContainer)`
-    display: flex;
-    height: auto;
-    flex-direction: column;`;
+    margin:40px 0;
+    padding: 0 80px;
+`;
 
-/*const PostContainer = ({className}) => {
-    const post = useSelector(selectPost);
-    const dispatch = useDispatch();
-    const params = useParams();
-    const requestServer = useServerRequest();
-
-    useEffect(() => {
-    if (
-        !params.id ||
-        typeof params.id !== 'string' ||
-        params.id.trim() === ''
-    ) {
-        console.warn('Invalid or empty post ID:', params.id);
-        return;
-    }
-
-    dispatch(loadPostAsync(requestServer, params.id));
-}, [dispatch, requestServer, params.id]);
-
-
-    return (
-       <div className={className}>
-         <PostContent post={post} />
-         <Comments comments={post.comments} />
-       </div>
-    );
-};
-
-export const Post = styled(PostContainer)``;
-
-
-
-
-
-useEffect(() => {
-    dispatch(loadPostAsync(requestServer, params.id));
-    // Fetch post data here
-}, [dispatch, requestServer, params.id]);*/

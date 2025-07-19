@@ -98,6 +98,66 @@
         "roleId": 2,
         "password": "qwert123456"
       }
+    },
+    {
+      "id": "d6a0",
+      "hash": "4x7phkghch3",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "3f25",
+      "hash": "zpebl76j14a",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "8eff",
+      "hash": "1nck3bsq148",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "62c8",
+      "hash": "ktk1y6ht1p",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "678a",
+      "hash": "uac6shoyi9",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "88e1",
+      "hash": "q53nqzhb29h",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
     }
   ]
 }

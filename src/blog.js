@@ -12,15 +12,17 @@ const AppColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
   align-items: center;
   width: 1000px;
-  height: auto;
+  min-height: 100%;
   margin: 0 auto;
-    background: #f5f5f5;
+  background: #f5f5f5;
   `;
 
 const Page = styled.div`
  padding: 120px 0 20px;
+
 
 `;
 

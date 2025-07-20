@@ -1,17 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './components/header/header';
 import styled from 'styled-components';
-import { Footer } from './components/footer/footer';
+import { Footer, Modal, Error } from './components';
 import  {Authorization, Main, Registration, Users, Post} from './pages/index';
 import { useLayoutEffect } from 'react';
 import { setUser } from './actions';
 import { useDispatch } from 'react-redux';
-import { Modal } from './components/modal/modal';
+import {ERROR} from './bff/constants/error';
 
 const AppColumn = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: spase-between;
   position: relative;
   align-items: center;
   width: 1000px;
@@ -22,7 +22,6 @@ const AppColumn = styled.div`
 
 const Page = styled.div`
  padding: 120px 0 20px;
-
 
 `;
 
@@ -53,10 +52,10 @@ export const Blog = () => {
                   <Route path="/login" element={<Authorization />} />
                   <Route path="/register" element={<Registration />} />
                   <Route path="/users" element={<Users />} />
-                  <Route path="/post" element={<Post/>} />
+                  <Route path="/post" element={<Post />} />
                   <Route path="/post/:id" element={<Post />} />
                   <Route path="/post/:id/edit" element={<Post />} />
-                  <Route path="*/" element={<div>Error</div>} />
+                  <Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST}/>} />
               </Routes>
           </Page>
           <Footer />

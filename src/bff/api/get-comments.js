@@ -1,7 +1,7 @@
 import {transformComment} from '../transformers/transform-comment';
 
 const ALL_COMMENTS_URL = 'http://localhost:3005/comments';
-const POST_COMMENTS_URL = (postId) => `http://localhost:3005/comments?post_id`;
+const POST_COMMENTS_URL = 'http://localhost:3005/comments?post_id=';
 
 export const getComments = (postId) => {
     const url = postId === undefined ? ALL_COMMENTS_URL : POST_COMMENTS_URL + postId;

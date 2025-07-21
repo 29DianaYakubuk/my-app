@@ -77,7 +77,22 @@
       "publishedAt": "2025-01-05"
     }
   ],
-  "comments": [],
+  "comments": [
+    {
+      "id": "a206",
+      "author_id": "001",
+      "post_id": "002",
+      "content": "first",
+      "published_at": "2033-05-23 21:33"
+    },
+    {
+      "id": "78cc",
+      "author_id": "001",
+      "post_id": "001",
+      "content": "good topic",
+      "published_at": "2033-05-22 02:42"
+    }
+  ],
   "sessions": [
     {
       "id": "f85c",
@@ -152,6 +167,46 @@
     {
       "id": "88e1",
       "hash": "q53nqzhb29h",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "4af0",
+      "hash": "64nltla7kq5",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "ef5a",
+      "hash": "2p8osjjsg86",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "04f6",
+      "hash": "qhmy1wmi6q",
+      "user": {
+        "id": "001",
+        "login": "Dziyana",
+        "roleId": 0,
+        "password": "qwerty123"
+      }
+    },
+    {
+      "id": "547c",
+      "hash": "wjwiz8fe2xh",
       "user": {
         "id": "001",
         "login": "Dziyana",

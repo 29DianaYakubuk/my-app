@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 import { Icon } from '../../../../components/icon/icon';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openModal, CLOSE_MODAL, removePostAsync} from '../../../../actions';
 import { useServerRequest } from '../../../../hooks/use-server-request';
 import { useNavigate } from 'react-router-dom'; // Assuming you have a Navigate function for redirection
+import { checkAccess } from '../../../../utils';
+import { ROLE } from '../../../../bff/constants/role';
+import { selectUserRole } from '../../../../selectors/select-user-role';
 
 
 const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
     const dispatch = useDispatch();
     const requestServer = useServerRequest(); 
-    const navigate = useNavigate();// Assuming you have a server request handler
+    const navigate = useNavigate();
+    const userRole = useSelector(selectUserRole);
 
     const onPostRemove = (id) => {
         dispatch(
@@ -25,6 +29,8 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
             }),
         );
     };
+    const isAdmin = checkAccess([ROLE.ADMIN], userRole);
+
     return (
         <div className={className}>
             <div className="published-at">
@@ -33,6 +39,7 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
                 )}
                 {publishedAt}
             </div>
+            {isAdmin && (
             <div className="buttons">
                 {editButton}
                 {publishedAt && (
@@ -44,6 +51,7 @@ const SpecialPanelContainer = ({ className, id, publishedAt, editButton }) => {
                     />
                 )}
             </div>
+            )}
         </div>
     );
 };

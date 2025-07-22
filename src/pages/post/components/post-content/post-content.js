@@ -1,21 +1,24 @@
+
 import styled from 'styled-components';
 import { H2 } from '../../../../components/h2/h2';
 import { Icon } from '../../../../components/icon/icon';
 import { SpecialPanel } from '../special-panel/special-panel';
 import { useNavigate } from 'react-router-dom';
+import { PROP_TYPE } from '../../../../constants/prop-type';
 
 const PostContentContainer = ({
     className,
-    post: { id, title, imageUrl, content, publishedAt} }) => {
+    post: { id, title, imageUrl, content, publishedAt },
+}) => {
     const navigate = useNavigate();
     return (
         <div className={className}>
-            <img src={imageUrl} alt={title}/>
+            <img src={imageUrl} alt={title} />
             <H2>{title}</H2>
-            <SpecialPanel 
+            <SpecialPanel
                 id={id}
-                publishedAt={publishedAt} 
-                margin="-20px 0 20px" 
+                publishedAt={publishedAt}
+                margin="-20px 0 20px"
                 editButton={
                     <Icon
                         id="fa-pencil"
@@ -41,3 +44,7 @@ export const PostContent = styled(PostContentContainer)`
         white-space: pre-line;
     }
 `;
+
+PostContent.propTypes = {
+    post: PROP_TYPE.POST.isRequired,
+};

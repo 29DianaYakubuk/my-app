@@ -1,8 +1,16 @@
-import { Link } from "react-router";
-import { Icon } from "../../../../components";
-import styled from "styled-components";
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
+import { Icon } from '../../../../components';
+import styled from 'styled-components';
 
-const PostCardContainer = ({className, id, title, imageURL, publishedAt, commentsCount}) => { 
+const PostCardContainer = ({
+    className,
+    id,
+    title,
+    imageURL,
+    publishedAt,
+    commentsCount,
+}) => {
     return (
         <div className={className}>
             <Link to={`/post/${id}`}>
@@ -10,28 +18,28 @@ const PostCardContainer = ({className, id, title, imageURL, publishedAt, comment
                 <div className="post-card-footer">
                     <h4>{title}</h4>
                     <div className="post-card-info">
-                    <div className="published-at">
-                        <Icon
-                            inactive={true}
-                            id="fa-calendar-days"
-                            size="18px"
-                            margin="0 7px 0 0"
-                        />
-                        {publishedAt}
-                    </div>
-                    <div className="comments-count">
-                        <Icon   
-                            inactive={true}
-                            id="fa-comments"
-                            size="18px"
-                            margin="0 7px 0 0"
-                        />
-                        {commentsCount}
+                        <div className="published-at">
+                            <Icon
+                                inactive={true}
+                                id="fa-calendar-days"
+                                size="18px"
+                                margin="0 7px 0 0"
+                            />
+                            {publishedAt}
+                        </div>
+                        <div className="comments-count">
+                            <Icon
+                                inactive={true}
+                                id="fa-comments"
+                                size="18px"
+                                margin="0 7px 0 0"
+                            />
+                            {commentsCount}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Link>
-    </div>    
+            </Link>
+        </div>
     );
 };
 
@@ -66,3 +74,11 @@ export const PostCard = styled(PostCardContainer)`
         align-items: center;
     }
 `;
+PostCardContainer.propTypes = {
+    
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    imageURL: PropTypes.string.isRequired,
+    publishedAt: PropTypes.string.isRequired,
+    commentsCount: PropTypes.number.isRequired,
+};

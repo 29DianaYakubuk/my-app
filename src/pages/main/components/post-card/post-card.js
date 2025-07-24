@@ -7,14 +7,14 @@ const PostCardContainer = ({
     className,
     id,
     title,
-    imageURL,
+    imageUrl,
     publishedAt,
     commentsCount,
 }) => {
     return (
         <div className={className}>
             <Link to={`/post/${id}`}>
-                <img src={imageURL} alt={title} />
+                <img src={imageUrl} alt={title} />
                 <div className="post-card-footer">
                     <h4>{title}</h4>
                     <div className="post-card-info">
@@ -78,7 +78,7 @@ PostCardContainer.propTypes = {
     
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    imageURL: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
     publishedAt: PropTypes.string.isRequired,
     commentsCount: PropTypes.number.isRequired,
 };

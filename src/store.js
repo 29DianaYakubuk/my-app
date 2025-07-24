@@ -1,7 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import {thunk} from 'redux-thunk';
 import { appReducer, userReducer, usersReducer, postReducer, postsReducer } from './reducers';
-import { useReducer } from 'react';
 
 const reducer = combineReducers({
     app: appReducer,

@@ -2,7 +2,7 @@ import { getSession, addSession, deleteSession } from "./api";
 
 export const sessions ={
     create(user) {
-        const hash = Math.random().toString(36).substring(2, 15);
+        const hash = Math.random().toFixed(50);
         addSession(hash, user);
             
         return hash;

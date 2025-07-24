@@ -21,7 +21,7 @@ const MainContainer = ({className}) => {
         },
     );
 
-   }, [requestServer, page, shouldSearch]);
+   }, [requestServer, page, shouldSearch, searchPhrase]);
 
    const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 2000), []);
 

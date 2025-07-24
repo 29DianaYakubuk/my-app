@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useServerRequest} from '../../../../hooks/use-server-request';
+import { useServerRequest } from '../../../../hooks/use-server-request';
 import { Icon } from '../../../../components';
 import styled from 'styled-components';
 import { TableRow } from '../table-row/table-row';
-
+import { PROP_TYPE } from '../../../../constants/prop-type';
 
 const UserRowContainer = ({
     className,
@@ -18,7 +19,7 @@ const UserRowContainer = ({
     const [selectedRoleId, setSelectedRoleId] = useState(userRoleId);
     const requestServer = useServerRequest();
 
-    const onRoleChange = ({target}) => {
+    const onRoleChange = ({ target }) => {
         setSelectedRoleId(Number(target.value));
     };
 
@@ -35,7 +36,7 @@ const UserRowContainer = ({
             <TableRow border={true}>
                 <div className="login-column">{login}</div>
                 <div className="registered-at-column">{registeredAt}</div>
-                < div className="role-column">
+                <div className="role-column">
                     <select value={selectedRoleId} onChange={onRoleChange}>
                         {roles.map(({ id: roleId, name: roleName }) => (
                             <option key={roleId} value={roleId}>
@@ -43,10 +44,12 @@ const UserRowContainer = ({
                             </option>
                         ))}
                     </select>
-                        <Icon
-                            id="fa-floppy-disk" margin="0 0 0 10px" disabled={isSaveButtonDisabled}
-                            onClick={() => onRoleSave(id, selectedRoleId)}
-                        />
+                    <Icon
+                        id="fa-floppy-disk"
+                        margin="0 0 0 10px"
+                        disabled={isSaveButtonDisabled}
+                        onClick={() => onRoleSave(id, selectedRoleId)}
+                    />
                 </div>
             </TableRow>
             <Icon
@@ -57,15 +60,22 @@ const UserRowContainer = ({
         </div>
     );
 };
-
 export const UserRow = styled(UserRowContainer)`
-display: flex;
-border: 1px solid #000;
-margin: 10px 0;
+    display: flex;
+    border: 1px solid #000;
+    margin: 10px 0;
 
-&  select {
-   font-size: 16px;
-    padding: 0 5px;
+    & select {
+        font-size: 16px;
+        padding: 0 5px;
 }
 
 `;
+UserRow.propTypes = {
+    id: PropTypes.string.isRequired,
+    login: PropTypes.string.isRequired,
+    registeredAt: PropTypes.string.isRequired,
+    roleId: PROP_TYPE.ROLE.isRequired,
+    roles: PropTypes.arrayOf(PROP_TYPE.ROLE).isRequired,
+    onUserRemove: PropTypes.func.isRequired,
+};

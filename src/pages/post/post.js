@@ -1,81 +1,67 @@
-import {Comments} from '../post/components/comments/comments';
-import { useParams } from 'react-router-dom';
-import {PostContent} from './components/post-content/post-content';
-import { useEffect } from 'react';
+import { useMatch, useParams } from 'react-router-dom';
+import { PostForm, PostContent, Comments } from './components';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector,useDispatch } from 'react-redux';
 import { useServerRequest } from '../../hooks/use-server-request';
-import { loadPostAsync } from '../../actions';
+import { loadPostAsync, RESET_POST_DATA } from '../../actions';
 import { selectPost } from '../../selectors/select-post';
+import { Error } from '../../components';
+import { PrivateContent } from '../../components';
+import { ROLE } from '../../bff/constants/role';
 
 
 const PostContainer = ({ className }) => {
-    const post = useSelector(selectPost);
+    const [error, setError] = useState(null);
     const dispatch = useDispatch();
+    const isCreating = !!useMatch('/post');
+    const isEditing = !!useMatch('/post/:id/edit');
     const params = useParams();
+    const [isLoading, setIsLoading] = useState(true);
     const requestServer = useServerRequest();
+    const post = useSelector(selectPost);
+    
+
+    useLayoutEffect(() => {
+        dispatch(RESET_POST_DATA);
+     }, [dispatch, isCreating]);
 
     useEffect(() => {
-        if (!params.id || typeof params.id !== 'string' || params.id.trim() === '') {
-            console.warn('Invalid or empty post ID:', params.id);
+        if (isCreating) {
+            setIsLoading(false);
             return;
         }
 
-        dispatch(loadPostAsync(requestServer, params.id));
-    }, [dispatch, requestServer, params.id]);
+        dispatch(loadPostAsync(requestServer, params.id)).then((postData) => {
+                setError(postData.error);
+                setIsLoading(false); 
+        });
+    }, [dispatch, requestServer, params.id, isCreating]);
 
-    if (!post || !post.id) {
-        return <div>Загрузка поста...</div>;
+    if (isLoading) {
+        return null;
     }
 
-    return (
-        <div className={className}>
-            <PostContent post={post} />
-            <Comments comments={post.comments} postId={post.id} />
-        </div>
-    );
+    const SpecificPostPage =
+        isCreating || isEditing ? (
+            <PrivateContent access={[ROLE.ADMIN]} serverError={error}>
+                <div className={className}>
+                    <PostForm post={post} />
+                </div>
+            </PrivateContent>
+        ) : (
+            <div className={className}>
+                <PostContent post={post} />
+                <Comments comments={post.comments} postId={post.id} />
+            </div>
+        ); 
+
+    return error ? (
+        <Error error={error} />
+    ) : SpecificPostPage; 
 };
 
 export const Post = styled(PostContainer)`
-    display: flex;
-    height: auto;
-    flex-direction: column;`;
-
-/*const PostContainer = ({className}) => {
-    const post = useSelector(selectPost);
-    const dispatch = useDispatch();
-    const params = useParams();
-    const requestServer = useServerRequest();
-
-    useEffect(() => {
-    if (
-        !params.id ||
-        typeof params.id !== 'string' ||
-        params.id.trim() === ''
-    ) {
-        console.warn('Invalid or empty post ID:', params.id);
-        return;
-    }
-
-    dispatch(loadPostAsync(requestServer, params.id));
-}, [dispatch, requestServer, params.id]);
-
-
-    return (
-       <div className={className}>
-         <PostContent post={post} />
-         <Comments comments={post.comments} />
-       </div>
-    );
-};
-
-export const Post = styled(PostContainer)``;
-
-
-
-
-
-useEffect(() => {
-    dispatch(loadPostAsync(requestServer, params.id));
-    // Fetch post data here
-}, [dispatch, requestServer, params.id]);*/
+    margin:40px 0;
+    padding: 0 80px;
+`;

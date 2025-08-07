@@ -1,40 +1,48 @@
-Области хранения данных
--база данных на json-server
--BFF
--Redux store
+ ## Full-Stack Blog Application (React + JSON Server + BFF + Redux)
 
-Сущности приложения
--пользователь: БД, BFF (сессия текущего), store (отображение в браузере)
--роль пользователя: БД (список ролей), BFF (сессия пользователей с ролью), store (использование на клиенте)
--статья: БД (список статей), store (отображение в браузере)
--комментарий: БД (список комментариев), store (отображение в браузере)
+This project is a full-stack blog application that demonstrates user authentication, role-based access control, CRUD operations, and client-server data flow using **React**, **JSON Server**, **Redux**, and **Backend-for-Frontend (BFF)** patterns.
 
-Таблицы БД:
--пользователи - users: id / login /!password/ registed_at / role_id
--роли -roles: id/ name
--статьи -posts: id/title/image_url/ content/ published_at
--комментарии -comments: id/author_id/ post_id / content
+---
 
-Схема состояния на BFF:
--сессия текущего пользователя: login/password/role
- 
- Схема для Redux store (на клиенте):
- -user: id/login/roledID
- -posts: массив со статьями: id / title / imageURL/ publishedAt/commentsCount
--post: id / title / imageURL/content /publishedAt/comments:массив comment: id/author/content/ publishedAt
--users: массив user: id/login/registeredAt/role
+## Data Storage Layers
 
-/* comments: {
-      "id": "001",
-      "post_id": "001",
-      "user_id": "001",
-      "content": "Great article! I love how you highlighted the importance of AI in enhancing human capabilities. It's exciting to see how technology can empower us rather than replace us.",
-      "created_at": "2023-10-06"
-    },
-    {
-      "id": "002",
-      "post_id": "002",
-      "user_id": "001",
-      "content": "The future of work is indeed changing rapidly. I appreciate your insights on the importance of mental health in the workplace. It's crucial for companies to prioritize employee well-being.",
-      "created_at": "2023-11-16"
-    } */
+- **Database:** JSON Server (mock REST API)
+- **BFF (Backend-for-Frontend):** Manages sessions and unifies data for frontend
+- **Redux Store:** Handles UI and client-side state
+
+---
+
+##  Application Entities
+
+###  User
+- **Database:** stored in `users` table
+- **BFF:** session info (login, password, role)
+- **Redux Store:** used to render current user and manage UI state
+
+###  Role
+- **Database:** stored in `roles` table
+- **BFF:** maps users to roles
+- **Redux Store:** used for access control on the client
+
+###  Post
+- **Database:** stored in `posts` table
+- **Redux Store:** used to list and display individual blog posts
+
+###  Comment
+- **Database:** stored in `comments` table
+- **Redux Store:** linked to specific posts and shown in UI
+
+---
+
+##  Database Tables (JSON Server)
+
+### `users`
+```json
+{
+  "id": "string",
+  "login": "string",
+  "password": "string",
+  "registered_at": "string",
+  "role_id": "string"
+}
+
